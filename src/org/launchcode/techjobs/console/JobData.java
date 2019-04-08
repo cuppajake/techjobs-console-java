@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by LaunchCode
  */
-public class JobData {
+class JobData {
 
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
@@ -29,7 +29,7 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
-    public static ArrayList<String> findAll(String field) {
+    static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
         loadData();
@@ -47,7 +47,7 @@ public class JobData {
         return values;
     }
 
-    public static ArrayList<HashMap<String, String>> findAll() {
+    static ArrayList<HashMap<String, String>> findAll() {
 
         // load data, if not already loaded
         loadData();
@@ -66,7 +66,7 @@ public class JobData {
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
-    public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
+    static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
         // load data, if not already loaded
         loadData();
@@ -77,7 +77,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().equals(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -101,7 +101,7 @@ public class JobData {
             Reader in = new FileReader(DATA_FILE);
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
             List<CSVRecord> records = parser.getRecords();
-            Integer numberOfColumns = records.get(0).size();
+            int numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
             allJobs = new ArrayList<>();
@@ -126,7 +126,7 @@ public class JobData {
         }
     }
 
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+    static ArrayList<HashMap<String, String>> findByValue(String value) {
 
         //load data
         loadData();
