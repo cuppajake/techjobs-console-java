@@ -77,8 +77,10 @@ class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.toLowerCase().equals(value.toLowerCase())) {
-                jobs.add(row);
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                if(!jobs.contains(row)) {
+                    jobs.add(row);
+                }
             }
         }
 
@@ -135,13 +137,15 @@ class JobData {
 
         //set up new HashMap with lowercase keys
         for(HashMap<String, String> job : allJobs) {
-            for(String key : job.values()){
-                if (key.toLowerCase().equals(value.toLowerCase())) {
-                    jobs.add(job);
+            for (String searchValues : job.values()) {
+                if (searchValues.toLowerCase().contains(value.toLowerCase())) {
+                    // how to stop duplication?
+                    if (!jobs.contains(job)) {
+                        jobs.add(job);
+                    }
                 }
             }
         }
-
         return jobs;
     }
 
